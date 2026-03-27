@@ -27,6 +27,13 @@
                 </div>
                 <button type="submit" class="submit-btn">LOGG INN →</button>
             </form>
+            <form method="POST" style="margin-top: 0.9rem;">
+                <input type="hidden" name="action" value="guest">
+                <button type="submit" class="btn btn-muted" style="width: 100%;">FORTSETT SOM GJEST</button>
+            </form>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); font-family: 'Space Mono', monospace;">
+                Gjest får rollen <span class="role-badge role-guest">guest</span> og kan bare lese eksisterende notater.
+            </p>
         </div>
     </div>
 
@@ -63,4 +70,4 @@
         el.classList.add('active');
     }
 </script>
-{% endblock %}r
+{% endblock %}

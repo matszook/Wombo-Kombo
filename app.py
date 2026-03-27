@@ -104,6 +104,13 @@ def login():
                 return redirect(url_for('dashboard'))
             flash('Feil brukernavn eller passord.', 'error')
 
+        elif action == 'guest':
+            session['username'] = 'guest'
+            session['role'] = 'guest'
+            session['name'] = 'Gjest'
+            flash('Du fortsetter som gjest. Du kan lese, men ikke poste eller slette notater.', 'success')
+            return redirect(url_for('dashboard'))
+
         elif action == 'register':
             username = request.form.get('reg_username', '').strip()
             password = request.form.get('reg_password', '')
@@ -167,6 +174,10 @@ def legg_til_notat():
 @app.route('/notattavle/slett/<int:index>', methods=['POST'])
 @login_required
 def slett_notat(index):
+    if session.get('role') == 'guest':
+        flash('Gjester kan ikke slette notater.', 'error')
+        return redirect(url_for('notattavle'))
+
     notater = load_notater()
     real_index = len(notater) - 1 - index
     if 0 <= real_index < len(notater):
